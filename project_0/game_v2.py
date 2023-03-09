@@ -4,6 +4,8 @@
 
 import numpy as np
 
+data = list(range(1,101))   # задаем список чисел , в котором будет происходить поиск загаданного числа
+
 def random_predict(data,number):
     """Рандомно угадываем число
 
@@ -13,7 +15,7 @@ def random_predict(data,number):
     Returns:
         int: Число попыток
     """  
-    data = list(range(1,101))   # задаем список чисел , в котором будет искать загнаданное
+    
     low = 0                     # начальный индекс интервала списка
     high = len(data)            # конечный индекс интервала списка
     count = 0
@@ -28,8 +30,7 @@ def random_predict(data,number):
               else:
                  low = middle + 1
     return count 
-   
-data = list(range(1,101))
+
 def score_game(random_predict) -> int:
     """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
 
