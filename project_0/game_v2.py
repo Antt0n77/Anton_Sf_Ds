@@ -4,8 +4,7 @@
 
 import numpy as np
 
-
-def random_predict(number: int = 1) -> int:
+def random_predict(data,number):
     """Рандомно угадываем число
 
     Args:
@@ -13,27 +12,24 @@ def random_predict(number: int = 1) -> int:
 
     Returns:
         int: Число попыток
-    """
+    """  
+    data = list(range(1,101))   # задаем список чисел , в котором будет искать загнаданное
+    low = 0                     # начальный индекс интервала списка
+    high = len(data)            # конечный индекс интервала списка
     count = 0
-
-    while True:
-        count += 1
-         
-        if number <= 20 :
-            predict_number = np.random.randint(1,20) # предполагаемое число в определенной области чисел 
-        if 20 <= number < 40 :
-            predict_number = np.random.randint(20, 40) 
-        if 40 <= number <= 60 :
-            predict_number = np.random.randint(40, 60)    
-        if 60 <= number <= 80 :
-            predict_number = np.random.randint(60, 80)  
-        if 80 <= number <= 100 :
-            predict_number = np.random.randint(80, 101)    
-        if number == predict_number:
-            break  # выход из цикла если угадали
-    return count
-    
-
+    while low <= high:          
+              count += 1
+              middle = (low + high)//2
+       
+              if data[middle] == number:
+                 break
+              elif data[middle] > number:
+                 high = middle - 1
+              else:
+                 low = middle + 1
+    return count 
+   
+data = list(range(1,101))
 def score_game(random_predict) -> int:
     """За какое количство попыток в среднем за 1000 подходов угадывает наш алгоритм
 
@@ -48,7 +44,7 @@ def score_game(random_predict) -> int:
     random_array = np.random.randint(1, 101, size=(1000))  # загадали список чисел
 
     for number in random_array:
-        count_ls.append(random_predict(number))
+        count_ls.append(random_predict(data,number))
 
     score = int(np.mean(count_ls))
     print(f"Ваш алгоритм угадывает число в среднем за:{score} попыток")
